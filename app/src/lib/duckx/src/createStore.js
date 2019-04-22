@@ -17,11 +17,16 @@ function createStore(reducers) {
   }
 
   function dispatch(action) {
-    console.log('dispatch action', action)
-    state = currentReducers(state, action)
+    const result = currentReducers(state, action)
+    
+    // Проверка по ссылке, если ссылка не изменилась, то не вызываем подписки
+    if (state !== result.state) {
+      state = result.state;
 
-    for (let i = 0; i < listeners.length; i++) {
-      listeners[i]()
+      for (let i = 0; i < listeners.length; i++) {
+        // Прокидываем в подписчики список ключей в сторе, которые поменялись
+        listeners[i](result.listOfChanges)
+      }
     }
 
     return action

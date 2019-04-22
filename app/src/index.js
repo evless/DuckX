@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/app/App';
+import App from './components/app';
 import * as serviceWorker from './utils/serviceWorker';
 
-import { Provider } from './lib/react-duckx';
-
+import { Context } from './lib/react-duckx';
 import { createStore } from './lib/duckx';
 import reducer from './redux'
 
@@ -15,7 +14,7 @@ console.log(store.getState())
 
 window._store = store;
 
-ReactDOM.render(<Provider store={store}><App test='test' /></Provider>, document.getElementById('root'));
+ReactDOM.render(<Context.Provider value={store}><App /></Context.Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -13,5 +13,9 @@ export default function todo(state = initialState, action) {
     ]
   }
 
+  if (action.type === 'FICTION_TODO') {
+    return state;
+  }
+
   return state
 }

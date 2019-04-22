@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from '../../lib/react-duckx';
 import { addTodo } from '../../redux/todo';
-import './App.css';
+import './styles.css';
 
-class App extends Component {
+class Todo extends Component {
   static defaultProps = {
     todo: []
   }
 
   handleClick = () => {
-    this.props.addTodo(Math.random())
+    this.props.actions.addTodo(Math.random())
   }
 
   render() {
     return (
       <div className="App">
+        Test props: {this.props.test}
         <button onClick={this.handleClick}>Add Todo</button>
         <ul>
           {this.props.todo.map(item => <li key={item}>{item}</li>)}
@@ -25,7 +26,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log(state)
   return {
     todo: state.todo,
   }
@@ -35,4 +35,4 @@ const mapDispatchToProps = (dispatch) => ({
   addTodo: (payload) => dispatch(addTodo(payload))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps, ['todo'])(Todo)
