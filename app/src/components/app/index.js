@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import Todo from '../todo'
+import Offers from '../offers'
 import Header from '../header'
 
 class App extends Component {
   state = {
-    test: 'test'
+    random: Math.random()
   }
 
   handleChangeProps = () => {
     this.setState({
-      test: Math.random()
+      random: Math.random()
     })
   }
+
   render() {
     return (
       <div className="App">
         <Header onChangeProps={this.handleChangeProps} />
-        <Todo test={this.state.test} />
+        <Todo />
+        <Offers />
       </div>
     );
   }

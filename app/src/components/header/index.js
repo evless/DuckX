@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <div className="App-header">
-        <button onClick={this.props.onChangeProps}>Change Test Props</button>
+        <h1>Todo and offers</h1>
       </div>
     );
   }

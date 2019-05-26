@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from '../../lib/react-duckx';
-import { addTodo } from '../../redux/todo';
+import { addOffer } from '../../redux/offer';
 
-class Todo extends Component {
+class Offers extends Component {
   static defaultProps = {
     todo: []
   }
@@ -12,14 +12,14 @@ class Todo extends Component {
   }
 
   render() {
-    console.log('rerender todo')
+    console.log('rerender offers')
 
     return (
       <div className="App">
-        <h1>Todo</h1>
-        <button onClick={this.handleClick}>Add Todo</button>
+        <h1>Offer</h1>
+        <button onClick={this.handleClick}>Add Offer</button>
         <ul>
-          {this.props.todo.map(item => <li key={item}>{item}</li>)}
+          {this.props.offers.map(item => <li key={item}>{item}</li>)}
         </ul>
       </div>
     );
@@ -28,12 +28,12 @@ class Todo extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    todo: state.todo,
+    offers: state.offer,
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addTodo: (payload) => dispatch(addTodo(payload))
+  addTodo: (payload) => dispatch(addOffer(payload))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps, ['todo'])(Todo)
+export default connect(mapStateToProps, mapDispatchToProps, ['offer'])(Offers)

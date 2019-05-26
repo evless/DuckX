@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useLayoutEffect } from 'react';
 import { Context } from './';
 
 export default function connect(
@@ -13,7 +13,7 @@ export default function connect(
       const store = useContext(Context)
       const [state, changeState] = useState({})
   
-      useEffect(function() {
+      useLayoutEffect(function() {
         return store.subscribe((changedStateFields) => {
           // Тут проверяем ключи из connect'a и которые изменились в сторе
           // Если хоть один совпадает, то вызываем ререндер иначе ничего не делаем
@@ -34,7 +34,9 @@ export default function connect(
         const data = mapStateToProp(state)
   
         data.actions = mapDispatchToProps(store.dispatch)
-        console.log('connect data')
+        
+        console.info(`Change store`)
+
         return data;
       }, [state]);
   

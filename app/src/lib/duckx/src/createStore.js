@@ -16,6 +16,11 @@ function createStore(reducers) {
     listeners.push(listener)
   }
 
+  function unsubscribe(listener) {
+    const index = listeners.findIndex(item => item === listener)
+    listener.splice(index, 1)
+  }
+
   function dispatch(action) {
     const result = currentReducers(state, action)
     
@@ -38,6 +43,7 @@ function createStore(reducers) {
     getState,
     dispatch,
     subscribe,
+    unsubscribe,
   }
 }
 
