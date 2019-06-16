@@ -4,9 +4,6 @@ import { Context } from './';
 export default function connect(
   mapStateToProp = () => {},
   mapDispatchToProps = () => {},
-  // Можно указать ключи, на которые надо подписаться, иначе вызываться ререндер будет
-  // При любых изменениях стора
-  stateFields = [],
 ) {
   return (WrappedComponent) => {
     return (props) => {
@@ -14,17 +11,7 @@ export default function connect(
       const [state, changeState] = useState({})
   
       useLayoutEffect(function() {
-        return store.subscribe((changedStateFields) => {
-          // Тут проверяем ключи из connect'a и которые изменились в сторе
-          // Если хоть один совпадает, то вызываем ререндер иначе ничего не делаем
-          const someChangedStateFields = stateFields.length > 0 ?
-            changedStateFields.some(field => stateFields.includes(field)) :
-            true;
-
-          if (someChangedStateFields) {
-            changeState({})
-          }
-        });
+        return store.subscribe(() => changeState({}));
       }, [])
       
       // Используем memo для сохранения значений

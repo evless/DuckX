@@ -36,4 +36,4 @@ const mapDispatchToProps = (dispatch) => ({
   addTodo: (payload) => dispatch(addOffer(payload))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps, ['offer'])(Offers)
+export default connect(mapStateToProps, mapDispatchToProps)(Offers)

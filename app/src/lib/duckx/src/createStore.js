@@ -22,15 +22,14 @@ function createStore(reducers) {
   }
 
   function dispatch(action) {
-    const result = currentReducers(state, action)
+    const newState = currentReducers(state, action)
     
     // Проверка по ссылке, если ссылка не изменилась, то не вызываем подписки
-    if (state !== result.state) {
-      state = result.state;
+    if (state !== newState) {
+      state = newState;
 
       for (let i = 0; i < listeners.length; i++) {
-        // Прокидываем в подписчики список ключей в сторе, которые поменялись
-        listeners[i](result.listOfChanges)
+        listeners[i]()
       }
     }
 

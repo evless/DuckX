@@ -14,7 +14,7 @@ export default function combineReducers(reducers) {
 
   return function combination(state = {}, action) {
     // Тут сохраняем ключи, которые поменялись в сторе и отдаем их обратно
-    const listOfChanges = [];
+    let needChange = true;
     const nextState = {}
     for (let i = 0; i < finalReducersKeys.length; i++) {
       const key = finalReducersKeys[i]
@@ -28,13 +28,10 @@ export default function combineReducers(reducers) {
 
       nextState[key] = nextStateForKey
       if (nextStateForKey !== previousStateForKey) {
-        listOfChanges.push(key)
+        needChange = true
       }
     }
 
-    return {
-      listOfChanges,
-      state: Boolean(listOfChanges.length) ? nextState : state
-    }
+    return needChange ? nextState : state
   }
 }

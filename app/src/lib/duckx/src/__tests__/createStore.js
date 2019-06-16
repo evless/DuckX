@@ -3,18 +3,12 @@ import createStore from '../createStore';
 const reducerMock = (state, action) => {
     if (action.type === 'test') {
         return {
-            listOfChanges: ['test'],
-            state: {
-                ...state,
-                test: action.payload,
-            }
+            ...state,
+            test: action.payload,
         }
     }
 
-    return {
-        state,
-        listOfChanges: [],
-    }
+    return state
 }
 
 describe('createStore', () => {
@@ -53,7 +47,7 @@ describe('createStore', () => {
 
     it('subscribe returns listOfChanges', () => {
         const store = createStore(reducerMock)
-        const handler = (list) => expect(list).toEqual(['test'])
+        const handler = (list) => expect(list).toEqual(undefined)
 
         store.subscribe(handler);
 
