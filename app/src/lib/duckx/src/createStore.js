@@ -18,7 +18,7 @@ function createStore(reducers) {
 
   function unsubscribe(listener) {
     const index = listeners.findIndex(item => item === listener)
-    listener.splice(index, 1)
+    listeners.splice(index, 1)
   }
 
   function dispatch(action) {
