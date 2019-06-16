@@ -8,9 +8,10 @@ import { Context } from './lib/react-duckx';
 import { createStore } from './lib/duckx';
 import reducer from './redux'
 
-const store = createStore(reducer)
-
-console.log(store.getState())
+const store = createStore(reducer, {
+    todo: [],
+    offer: []
+})
 
 window._store = store;
 

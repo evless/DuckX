@@ -28,7 +28,7 @@ class Todo extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    todo: state.todo,
+    todo: state.todo || [],
   }
 }
 

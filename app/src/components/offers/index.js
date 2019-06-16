@@ -8,7 +8,7 @@ class Offers extends Component {
   }
 
   handleClick = () => {
-    this.props.actions.addTodo(Math.random())
+    this.props.actions.addOffer(Math.random())
   }
 
   render() {
@@ -28,12 +28,12 @@ class Offers extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    offers: state.offer,
+    offers: state.offer || [],
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addTodo: (payload) => dispatch(addOffer(payload))
+  addOffer: (payload) => dispatch(addOffer(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Offers)

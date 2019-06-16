@@ -11,18 +11,15 @@ export default function connect(
       const [state, changeState] = useState({})
   
       useLayoutEffect(function() {
-        return store.subscribe(() => changeState({}));
+        return store.subscribe(changeState);
       }, [])
       
       // Используем memo для сохранения значений
       // И вызываем изменение через useState и подписку на стор
-      const memoz = React.useMemo(function() {
-        const state = store.getState();
+      const memoz = React.useMemo(function(newState) {
         const data = mapStateToProp(state)
   
         data.actions = mapDispatchToProps(store.dispatch)
-        
-        console.info(`Change store`)
 
         return data;
       }, [state]);

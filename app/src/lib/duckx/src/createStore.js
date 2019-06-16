@@ -1,49 +1,22 @@
-function createStore(reducers) {
-  if (typeof reducers !== 'function') {
-    throw new Error('Expected the reducer to be a function.')
-  }
+import { Subject }  from 'rxjs';
+import { startWith, scan, distinctUntilChanged, shareReplay } from 'rxjs/operators';
 
 
-  let currentReducers = reducers
-  let state = {}
-  let listeners = []
-  
-  function getState() {
-    return state
-  }
+export default function createStore(reducers, initialState) {
+  const action$ = new Subject();
+  const state$ = action$
+    .pipe(
+      startWith(initialState),
+      scan(reducers),
+      distinctUntilChanged(),
+      shareReplay()
+    )
 
-  function subscribe(listener) {
-    listeners.push(listener)
-  }
-
-  function unsubscribe(listener) {
-    const index = listeners.findIndex(item => item === listener)
-    listeners.splice(index, 1)
-  }
-
-  function dispatch(action) {
-    const newState = currentReducers(state, action)
-    
-    // Проверка по ссылке, если ссылка не изменилась, то не вызываем подписки
-    if (state !== newState) {
-      state = newState;
-
-      for (let i = 0; i < listeners.length; i++) {
-        listeners[i]()
-      }
-    }
-
-    return action
-  }
-
-  dispatch({ type: '@@INIT' })
+  const dispatch = action => action$.next(action)
 
   return {
-    getState,
     dispatch,
-    subscribe,
-    unsubscribe,
+    subscribe: state$.subscribe.bind(state$),
+    action$,
   }
 }
-
-export default createStore
