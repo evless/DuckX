@@ -26,10 +26,7 @@ describe('combineReducers', () => {
 
         const newState = reducers(state, { type: 'another test' })
 
-        expect({
-            listOfChanges: [],
-            state
-        }).toEqual(newState)
+        expect(state).toEqual(newState)
     })
 
     it('returns new state', () => {
@@ -41,11 +38,8 @@ describe('combineReducers', () => {
         const newState = reducers(state, { type: 'test', payload: { value: 'orange' } })
 
         expect({
-            listOfChanges: ['todo'],
-            state: {
-                todo: {
-                    value: 'orange'
-                }
+            todo: {
+                value: 'orange'
             }
         }).toEqual(newState)
     })

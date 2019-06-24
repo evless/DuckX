@@ -3,18 +3,12 @@ import createStore from '../createStore';
 const reducerMock = (state, action) => {
     if (action.type === 'test') {
         return {
-            listOfChanges: ['test'],
-            state: {
-                ...state,
-                test: action.payload,
-            }
+            ...state,
+            test: action.payload,
         }
     }
 
-    return {
-        state,
-        listOfChanges: [],
-    }
+    return state
 }
 
 describe('createStore', () => {
@@ -49,15 +43,6 @@ describe('createStore', () => {
         store.dispatch({ type: 'test', payload: 'test string' })
 
         expect(handler).toHaveBeenCalled()
-    })
-
-    it('subscribe returns listOfChanges', () => {
-        const store = createStore(reducerMock)
-        const handler = (list) => expect(list).toEqual(['test'])
-
-        store.subscribe(handler);
-
-        store.dispatch({ type: 'test', payload: 'test string' })
     })
 
     it("does't call subscribe", () => {
